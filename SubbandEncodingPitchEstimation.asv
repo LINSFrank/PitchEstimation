@@ -41,17 +41,15 @@ for n = 1:N
     disp(['Loop # ', num2str(n)]);
     filename = [afilenames{n}, '.wav'];
     for k = 1:length(Config.SNR)
-        SNR = Config.SNR(k);
-        disp(['SNR=',num2str(SNR),'dB']);
+        disp(['SNR=',num2str(Config.SNR(k)),'dB']);
         for m = 1:length(Config.Noise)
             tic
-            Noise = Config.Noise(m);
             close all;
-            smsg = strcat(filename, ', noise type is: ', Noise);
+            smsg = strcat(filename, ', noise type is: ', Config.Noise(m));
             disp(smsg);
-            [x, f0, Config] = SinglePitchEstimatorKeele_fn(apath, filename, SNR, Noise, Config );
-            save([bpath, afilenames{n}, '_PitchEstimates_SNR=',num2str(SNR), '_Noise=', Noise{1}, '.mat'], 'f0');
-            plotPitchEstimates_fn(apath, afilenames{n}, x, f0, SNR, Noise, Config);
+            [x, f0, Config] = SinglePitchEstimatorKeele_fn(apath, filename, Config.SNR(k), Config.Noise(m), Config );
+            plotPitchEstimates_fn(apath, filename, x, f0, Config);
+            save([bpath, afilenames{n}, '_f0_etaC=',num2str(Config.etaC),'Perr=',num2str(Config.Perr),'.mat'], 'f0');
             toc
         end
     end

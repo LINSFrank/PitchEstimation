@@ -49,7 +49,7 @@ for n = 1:N
             close all;
             smsg = strcat(filename, ', noise type is: ', Noise);
             disp(smsg);
-            [x, f0, Config] = SinglePitchEstimatorKeele_fn(apath, filename, SNR, Noise, Config );
+            [x, f0, Config] = SinglePitchEstimatorCSTR_fn(apath, filename, SNR, Noise, Config );
             save([bpath, afilenames{n}, '_PitchEstimates_SNR=',num2str(SNR), '_Noise=', Noise{1}, '.mat'], 'f0');
             plotPitchEstimates_fn(apath, afilenames{n}, x, f0, SNR, Noise, Config);
             toc

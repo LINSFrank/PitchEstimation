@@ -18,10 +18,10 @@
 
 close all;
 clear;
-[afilename, apath] = uigetfile({'*.wav; *.mp3'},'Sound File Selector'); % Select the folder where the sound files are. 
-afilenames = {'rl001'}; % list speech sound files, or use dir function to get sound file names.
-N = length(afilenames); % number of sound files to test.
-warning('off','all');
+[filename, apath] = uigetfile({'*.wav; *.mp3'},'Sound File Selector'); % Select the folder where the sound files are. 
+%filename list speech sound files, or use dir function to get sound file
+%names. In this example there is only one file selected. 
+N = length(filename); % number of sound files to test.
 
 Config.fs = 16000; % sound sampling frequency. 
 Config.f0_min = 60; % pitch frequency range.
@@ -37,25 +37,22 @@ bpath = [apath, Config.testID, '\'];
 Config.bpath = bpath; 
 save([bpath, 'Config.mat'], 'Config');
 
-for n = 1:N
-    disp(['Loop # ', num2str(n)]);
-    filename = [afilenames{n}, '.wav'];
-    for k = 1:length(Config.SNR)
-        SNR = Config.SNR(k);
-        disp(['SNR=',num2str(SNR),'dB']);
-        for m = 1:length(Config.Noise)
-            tic
-            Noise = Config.Noise(m);
-            close all;
-            smsg = strcat(filename, ', noise type is: ', Noise);
-            disp(smsg);
-            [x, f0, Config] = SinglePitchEstimatorCSTR_fn(apath, filename, SNR, Noise, Config );
-            save([bpath, afilenames{n}, '_PitchEstimates_SNR=',num2str(SNR), '_Noise=', Noise{1}, '.mat'], 'f0');
-            plotPitchEstimates_fn(apath, afilenames{n}, x, f0, SNR, Noise, Config);
-            toc
-        end
+for k = 1:length(Config.SNR)
+    SNR = Config.SNR(k);
+    disp(['SNR=',num2str(SNR),'dB']);
+    for m = 1:length(Config.Noise)
+        tic
+        Noise = Config.Noise(m);
+        close all;
+        smsg = strcat(filename, ', noise type is: ', Noise);
+        disp(smsg);
+        [x, f0, Config] = SinglePitchEstimatorCSTR_fn(apath, filename, SNR, Noise, Config );
+        save([bpath, filename, '_PitchEstimates_SNR=',num2str(SNR), '_Noise=', Noise{1}, '.mat'], 'f0');
+        plotPitchEstimates_fn(apath, filename, x, f0, SNR, Noise, Config);
+        toc
     end
 end
+
 
 
 

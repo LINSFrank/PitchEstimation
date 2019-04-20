@@ -1,4 +1,4 @@
-function [x, f0p, Config] = SinglePitchEstimatorKeele_fn(apath, afilename, SNR, Noise, Config )
+function [x, f0p, Config] = SinglePitchEstimatorCSTR_fn(apath, afilename, SNR, Noise, Config )
 % This program is provided as is, and without any warranty. 
 % It is for free for non-commercial research and study purposes.
 % If you find it useful, please kindly cite these papers:

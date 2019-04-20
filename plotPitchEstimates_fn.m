@@ -18,7 +18,7 @@ function plotPitchEstimates_fn(apath, filename, x, f0, SNR, Noise, Config)
 % !---
 
 %% Load Ground Truth
-load([apath, filename, '.mat']);
+load([apath, filename(1:end-4), '.mat']);
 P = CSTRpitch.P;
 T = CSTRpitch.T; % time of ground truth, in unit of milliseconds (ms).
 fs = Config.fs; 

@@ -1,0 +1,5 @@
+% This folder is provided as is, and without any warranty. 
+% It is for free for non-commercial research and study purposes.
+
+This folder contains the Keele sound files from the CSTR speech corpus. 
+Those <filename>.mat files contain the ground truth pitch over time. 
